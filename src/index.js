@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Home from './Home/Home'
-import Words from './VoiceSpell/Words'
+import Words from './WordsReverse/Words'
 import { Router } from "@reach/router"
 
 ReactDOM.render(

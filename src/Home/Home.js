@@ -4,9 +4,6 @@ import Item from './Item'
 
 export default class Home extends Component {
 
-
-
-
     render() {
         return(
             <Container>
