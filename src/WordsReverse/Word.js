@@ -1,10 +1,12 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {Alert} from 'react-bootstrap'
 
-export default class Words extends Component {
-    render() {
-        return(
-            <Alert variant="primary"><h1>{this.props.word}</h1></Alert>
-        )
+export default function Word(props) {
+    const {isVisible} = props;
+    if(isVisible){
+        return <Alert variant="primary">{props.word}</Alert>;
     }
+    return <Alert variant="primary">Text is hidden</Alert>
+
+
 }
