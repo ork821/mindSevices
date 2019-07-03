@@ -12,7 +12,8 @@ export default class Home extends Component {
                 </Row>
                 <Row className="justify-content-md-center">
                     <ListGroup as="ul">
-                        <Item to="reverse" text="WordsReverse"/>
+                        <Item to="reverse" text="Reverse Words"/>
+                        <Item to="memory" text="Improve Memory"/>
                     </ListGroup>
 
                 </Row>
