@@ -7,31 +7,70 @@ export default class Field extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            number: [],
+            array: [],
             variant: 'primary',
-
+            newArr: []
         };
     }
 
-    componentWillMount() {
-        let size = this.props.difficult;
-        for (let i = 1; i < ((size**2)+1); i++) {
-            this.state.number.push(i);
+    componentDidMount() {
+        const arr = [];
+        const size = this.props.difficult;
+        for (let i = 1; i < ((size ** 2) + 1); i++) {
+            arr.push(i);
+        }
+        this.setState({
+            array: arr
+        })
+    }
+
+
+
+    // newArr = () => {
+    //     let size = this.props.difficult;
+    //     let arr = this.state.array;
+    //     const newArr = []
+    //     for (let i = 0; i < size; i++) {
+    //         let pos = Math.floor(Math.random()*(arr.length));
+    //         console.log('pos - ' + pos)
+    //         newArr.push(arr[pos]);
+    //         arr.splice(pos, 1); // 0 - индекс, 1 - кол-во удаляемых элементов
+    //     }
+    //
+    //     return newArr
+    // }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.difficult !== this.props.difficult){
+            const arr = [];
+            const size = this.props.difficult;
+            for (let i = 1; i < ((size ** 2) + 1); i++) {
+                arr.push(i);
+            }
+            this.setState({
+                array: arr
+            })
         }
     }
+
 
 
 
     render() {
-        let arr = this.state.number;
         let size = this.props.difficult;
-        let list = []
+        let list = [];
+
+
         for (let i = 0; i < size; i++) {
-            list.push(<ButRow size={size} variant={this.state.variant} arr={arr}/>)
+            list.push(
+                <ButRow size={size} variant={this.state.variant}/>
+            );
         }
         return(
             <Row className="justify-content-md-center">
-                {list.map(el => {return el})}
+                {list.map(el => {
+                    return el;
+                })}
             </Row>
         )
     }

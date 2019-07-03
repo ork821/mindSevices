@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Container, Row, Col, ProgressBar, Form} from 'react-bootstrap';
 import Field from './Field'
 
-export default class Memory extends Component{
+export default class Memory extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,10 +14,16 @@ export default class Memory extends Component{
         this.setState({
             difficult: e.target.value,
         });
+
     };
 
+
+
+
+
     render() {
-        return(
+
+        return (
             <Container>
                 <Row className="justify-content-md-center">
                     <h2>Improve your memory</h2>

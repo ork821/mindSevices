@@ -4,11 +4,11 @@ import {Col, Button} from 'react-bootstrap';
 export default class ButtonRow extends  Component{
 
     render() {
-        let size = this.props.size;
-        let arr = this.props.arr;
+        const size = this.props.size;
+        const arr = this.props.arr;
         const list = [];
         for (let i = 0; i < size; i++) {
-            list.push(<Button block variant={this.props.variant} size="lg" block>{arr[0]}</Button>)
+            list.push(<Button block variant={this.props.variant} size="lg" block></Button>)
         }
 
         return(
