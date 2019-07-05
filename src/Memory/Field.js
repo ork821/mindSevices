@@ -1,45 +1,43 @@
 import React, {Component} from 'react';
 import {Button, Col, Row, Alert} from 'react-bootstrap';
+import Part from './Part'
 
 export default class Field extends Component {
     //Component gets number (3,4 or 5) and create field 3by3, 4by4 or 5by5. It depends on selected difficulty
     constructor(props) {
         super(props);
         this.state = {
-            variant: 'primary',
-            begin: 0
+            begin: 0,
         };
     }
 
-    handleClick = (number) => {
-        console.log(number);
-    }
 
+    handleClick = () => {
+        this.setState({
+            begin: (this.state.begin + 1)
+        })
+    }
 
 
     render() {
         const size = this.props.difficult;
         const list = [];
         const newArr = this.props.array
-        let isVisible = this.props.isVisible;
+
 
         for (let i = 0; i < size; i++) {
             const listButtons = [];
             for (let j = 0; j < size; j++) {
-                if (isVisible) {
-                    listButtons.push(
-                        <Alert
-                               variant={this.state.variant}>
-                            {newArr[i][j]}
-                        </Alert>)
-                } else {
-                    listButtons.push(
-                        <Alert
-                               variant={this.state.variant}
-                               onClick={() => this.handleClick(newArr[i][j])}>
-                            ?
-                        </Alert>)
-                }
+
+                listButtons.push(
+                    <Part
+                        number={newArr[i][j]}
+                        className={this.props.className}
+                        click={this.handleClick}
+                        begin={this.state.begin}
+                        isVisible={this.props.isVisible}
+                    />)
+
             }
             list.push(<Col md="auto">{listButtons.map(el => {
                 return el

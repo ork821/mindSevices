@@ -9,6 +9,7 @@ export default class Memory extends Component {
             difficult: 0,
             array: [],
             newArr: [],
+            className: "fade alert alert-primary show",
             btnState: true //if true => 'Hide' button
         };
     }
@@ -34,7 +35,8 @@ export default class Memory extends Component {
         this.setState({
             difficult: size,
             newArr: newArr,
-            btnState: true
+            btnState: true,
+            className: "fade alert alert-primary show",
         });
 
     };
@@ -105,7 +107,7 @@ export default class Memory extends Component {
 
                 </Row>
 
-                <Field difficult={this.state.difficult} array={this.state.newArr} isVisible={this.state.btnState}/>
+                <Field className={this.state.className} difficult={this.state.difficult} array={this.state.newArr} isVisible={this.state.btnState}/>
 
             </Container>
         )
