@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {Row} from 'react-bootstrap';
-import ButtonRow from './ButtonRow'
+import {Button, Col, Row} from 'react-bootstrap';
 
 export default class Field extends Component{
     //Component gets number (3,4 or 5) and create field 3by3, 4by4 or 5by5. It depends on selected difficulty
@@ -12,19 +11,21 @@ export default class Field extends Component{
     }
 
 
-
-
-
-
     render() {
         const size = this.props.difficult;
         const list = [];
         const newArr = this.props.array
-        console.log(newArr);
 
         for (let i = 0; i < size; i++) {
-            list.push(<ButtonRow size={size} variant={this.state.variant} newArr={newArr[i]}/>);
+            const listButtons = [];
+            for (let j = 0; j < size; j++) {
+                listButtons.push(
+                    <Button block variant={this.props.variant} size="lg"block>{newArr[i][j]}
+                    </Button>)
+                }
+            list.push(<Col md="auto">{listButtons.map(el => {return el})}</Col>);
         }
+
         return(
             <Row className="justify-content-md-center">
                 {list.map(el => {
