@@ -6,9 +6,32 @@ export default class Part extends Component {
         super(props)
         this.state = {
             className: this.props.className,
-            text: this.props.text,
-            isVisible: this.props.isVisible
+            text: this.props.number,
+            isVisible: true
         }
+    }
+
+    componentDidUpdate(prevProps){
+        if (prevProps.isVisible !== this.props.isVisible){
+            let isVisible = this.props.isVisible
+            let className = isVisible ? this.props.className : "fade alert alert-secondary show"
+            let text = isVisible ? this.props.number : '?'
+            this.setState({
+                className: className,
+                text: text,
+                isVisible: isVisible
+            })
+        }
+    }
+    componentDidMount() {
+        let isVisible = this.props.isVisible
+        let className = isVisible ? this.props.className : "fade alert alert-secondary show"
+        let text = isVisible ? this.props.number : '?'
+        this.setState({
+            className: className,
+            text: text,
+            isVisible: isVisible
+        })
     }
 
 
@@ -22,6 +45,7 @@ export default class Part extends Component {
                 text: number,
                 isVisible: true
             })
+            this.props.click()
 
         } else {
             this.setState({
@@ -31,17 +55,15 @@ export default class Part extends Component {
     }
 
 
-
     render() {
         let number = this.props.number
         let isVisible = this.state.isVisible
-        let text = isVisible ? number : '?'
-        let className = isVisible ? this.state.className : "fade alert alert-secondary show"
+
 
 
         return (
-            <Alert className={className} onClick={!isVisible ? this.onClick : ''}>
-                {text}
+            <Alert className={this.state.className} onClick={!isVisible ? this.onClick : ''}>
+                {this.state.text}
             </Alert>
         )
 
