@@ -5,39 +5,24 @@ export default class Part extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            className: this.props.className,
-            text: this.props.number,
-            isVisible: true
+            className: "fade alert alert-secondary show",
+            isVisible: false,
         }
     }
 
-    componentDidUpdate(prevProps){
-        if (prevProps.isVisible !== this.props.isVisible){
-            let isVisible = this.props.isVisible
-            let className = isVisible ? this.props.className : "fade alert alert-secondary show"
-            let text = isVisible ? this.props.number : '?'
+    componentDidUpdate(prevProps) {
+        if ((prevProps.isVisible !== this.props.isVisible) || (prevProps.className !== this.props.className) || (prevProps.number !== this.props.number)) {
             this.setState({
-                className: className,
-                text: text,
-                isVisible: isVisible
+                className: "fade alert alert-secondary show",
+                isVisible: false,
             })
         }
     }
-    componentDidMount() {
-        let isVisible = this.props.isVisible
-        let className = isVisible ? this.props.className : "fade alert alert-secondary show"
-        let text = isVisible ? this.props.number : '?'
-        this.setState({
-            className: className,
-            text: text,
-            isVisible: isVisible
-        })
-    }
+
 
 
     onClick = () => {
         let number = this.props.number
-        console.log('1')
         let begin = this.props.begin
         if (number === (begin + 1)) {
             this.setState({
@@ -57,13 +42,16 @@ export default class Part extends Component {
 
     render() {
         let number = this.props.number
-        let isVisible = this.state.isVisible
+        let isVisible = this.props.isVisible
+        let className = this.props.className
+        let text = isVisible ? number : (this.state.isVisible ? number : '?')
+        className = isVisible ? className : this.state.className
 
 
 
         return (
-            <Alert className={this.state.className} onClick={!isVisible ? this.onClick : ''}>
-                {this.state.text}
+            <Alert className={className} onClick={!isVisible ? this.onClick : ''}>
+                {text}
             </Alert>
         )
 

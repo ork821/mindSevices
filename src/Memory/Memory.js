@@ -7,7 +7,6 @@ export default class Memory extends Component {
         super(props);
         this.state = {
             difficult: 0,
-            array: [],
             newArr: [],
             className: "fade alert alert-primary show",
             btnState: true //if true => 'Hide' button
@@ -16,21 +15,23 @@ export default class Memory extends Component {
 
     onChange = (e) => {
         const size = e.target.value;
-        const arr = [];
+        let arr = [];
         for (let i = 1; i < ((size ** 2) + 1); i++) {
             arr.push(i);
         }
 
-        let newArr = [];
+        const newArr = [];
         for (let i = 0; i < size; i++) {
-            const tmp_arr = []
+            let tmp_arr = []
             for (let j = 0; j < size; j++) {
                 let pos = Math.floor(Math.random() * (arr.length));
                 tmp_arr.push(arr[pos]);
-                arr.splice(pos, 1);
+                arr = arr.filter(el => el !== arr[pos])
             }
             newArr.push(tmp_arr);
         }
+        console.log(newArr)
+
 
         this.setState({
             difficult: size,
@@ -42,38 +43,34 @@ export default class Memory extends Component {
     };
 
 
-    arrayOperation = () => {
-        const arr = [];
-        const size = this.state.difficult;
-        for (let i = 1; i < ((size ** 2) + 1); i++) {
-            arr.push(i);
-        }
-
-        let newArr = [];
-        for (let i = 0; i < size; i++) {
-            const tmp_arr = []
-            for (let j = 0; j < size; j++) {
-                let pos = Math.floor(Math.random() * (arr.length));
-                tmp_arr.push(arr[pos]);
-                arr.splice(pos, 1);
-            }
-            newArr.push(tmp_arr);
-        }
-        this.setState({
-            newArr: newArr
-        })
-
-    }
-
     handleClick = () => {
         this.setState({
             btnState: !this.state.btnState
         })
     }
 
-
-
-
+    reloadArray = () => {
+        const size = this.state.difficult;
+        let arr = [];
+        for (let i = 1; i < ((size ** 2) + 1); i++) {
+            arr.push(i);
+        }
+        const newArr = [];
+        for (let i = 0; i < size; i++) {
+            let tmp_arr = []
+            for (let j = 0; j < size; j++) {
+                let pos = Math.floor(Math.random() * (arr.length));
+                tmp_arr.push(arr[pos]);
+                arr = arr.filter(el => el !== arr[pos])
+            }
+            newArr.push(tmp_arr);
+        }
+        console.log(newArr)
+        this.setState({
+            newArr: newArr,
+            className: "fade alert alert-primary show",
+        })
+    }
 
 
     render() {
@@ -85,7 +82,7 @@ export default class Memory extends Component {
         return (
             <Container>
                 <Row className="justify-content-md-center">
-                    <h2>Improve your memory</h2>
+                    <h2>Improove your memory</h2>
                 </Row>
                 <Row className="justify-content-md-center">
                     <Col sm="8">
@@ -99,15 +96,22 @@ export default class Memory extends Component {
                             </Form.Control>
                         </Form.Group>
                         <Button variant={variant}
-                                onClick={this.handleClick}>{btnText}
+                                onClick={this.handleClick}>
+                            {btnText}
+                        </Button>
+                        <Button variant="success"
+                                onClick={this.reloadArray}
+                                disabled={!this.state.btnState}
+                        >
+                            New Numbers
                         </Button>
                     </Col>
 
 
-
                 </Row>
 
-                <Field className={this.state.className} difficult={this.state.difficult} array={this.state.newArr} isVisible={this.state.btnState}/>
+                <Field className={this.state.className} difficult={this.state.difficult} array={this.state.newArr}
+                       isVisible={this.state.btnState}/>
 
             </Container>
         )
